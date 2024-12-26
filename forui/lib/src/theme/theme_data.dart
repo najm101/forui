@@ -75,6 +75,9 @@ final class FThemeData with Diagnosticable {
   /// The line calendar style.
   final FLineCalendarStyle lineCalendarStyle;
 
+  /// The pagination style.
+  final FPaginationStyle paginationStyle;
+
   /// The popover's style.
   final FPopoverStyle popoverStyle;
 
@@ -144,6 +147,7 @@ final class FThemeData with Diagnosticable {
     required this.headerStyle,
     required this.labelStyles,
     required this.lineCalendarStyle,
+    required this.paginationStyle,
     required this.popoverStyle,
     required this.popoverMenuStyle,
     required this.progressStyle,
@@ -197,6 +201,7 @@ final class FThemeData with Diagnosticable {
       headerStyle: FHeaderStyles.inherit(colorScheme: colorScheme, typography: typography, style: style),
       labelStyles: FLabelStyles.inherit(style: style),
       lineCalendarStyle: FLineCalendarStyle.inherit(colorScheme: colorScheme, typography: typography, style: style),
+      paginationStyle: FPaginationStyle.inherit(colorScheme: colorScheme, typography: typography),
       popoverStyle: FPopoverStyle.inherit(colorScheme: colorScheme, style: style),
       popoverMenuStyle: FPopoverMenuStyle.inherit(colorScheme: colorScheme, style: style, typography: typography),
       progressStyle: FProgressStyle.inherit(colorScheme: colorScheme, style: style),
@@ -277,6 +282,7 @@ final class FThemeData with Diagnosticable {
     FHeaderStyles? headerStyle,
     FLabelStyles? labelStyles,
     FLineCalendarStyle? lineCalendarStyle,
+    FPaginationStyle? paginationStyle,
     FPopoverStyle? popoverStyle,
     FPopoverMenuStyle? popoverMenuStyle,
     FProgressStyle? progressStyle,
@@ -312,6 +318,7 @@ final class FThemeData with Diagnosticable {
         headerStyle: headerStyle ?? this.headerStyle,
         labelStyles: labelStyles ?? this.labelStyles,
         lineCalendarStyle: lineCalendarStyle ?? this.lineCalendarStyle,
+        paginationStyle: paginationStyle ?? this.paginationStyle,
         popoverStyle: popoverStyle ?? this.popoverStyle,
         popoverMenuStyle: popoverMenuStyle ?? this.popoverMenuStyle,
         progressStyle: progressStyle ?? this.progressStyle,
