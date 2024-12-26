@@ -201,7 +201,7 @@ final class FThemeData with Diagnosticable {
       headerStyle: FHeaderStyles.inherit(colorScheme: colorScheme, typography: typography, style: style),
       labelStyles: FLabelStyles.inherit(style: style),
       lineCalendarStyle: FLineCalendarStyle.inherit(colorScheme: colorScheme, typography: typography, style: style),
-      paginationStyle: FPaginationStyle.inherit(colorScheme: colorScheme, typography: typography),
+      paginationStyle: FPaginationStyle.inherit(colorScheme: colorScheme, typography: typography, style: style),
       popoverStyle: FPopoverStyle.inherit(colorScheme: colorScheme, style: style),
       popoverMenuStyle: FPopoverMenuStyle.inherit(colorScheme: colorScheme, style: style, typography: typography),
       progressStyle: FProgressStyle.inherit(colorScheme: colorScheme, style: style),
