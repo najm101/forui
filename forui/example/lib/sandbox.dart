@@ -56,6 +56,11 @@ class _SandboxState extends State<Sandbox> with SingleTickerProviderStateMixin {
               ],
             ),
             const SizedBox(height: 20),
+
+            FPagination(),
+
+
+            const SizedBox(height: 20),
             const FLabel(
               axis: Axis.horizontal,
               label: Text('Label'),
