@@ -360,6 +360,7 @@ final class FThemeData with Diagnosticable {
       ..add(DiagnosticsProperty('headerStyle', headerStyle, level: DiagnosticLevel.debug))
       ..add(DiagnosticsProperty('labelStyles', labelStyles, level: DiagnosticLevel.debug))
       ..add(DiagnosticsProperty('lineCalendarStyle', lineCalendarStyle, level: DiagnosticLevel.debug))
+      ..add(DiagnosticsProperty('paginationStyle', paginationStyle, level: DiagnosticLevel.debug))
       ..add(DiagnosticsProperty('popoverStyle', popoverStyle, level: DiagnosticLevel.debug))
       ..add(DiagnosticsProperty('popoverMenuStyle', popoverMenuStyle, level: DiagnosticLevel.debug))
       ..add(DiagnosticsProperty('progressStyle', progressStyle, level: DiagnosticLevel.debug))
