@@ -60,6 +60,9 @@ final class FThemeData with Diagnosticable {
   /// The checkbox style.
   final FCheckboxStyle checkboxStyle;
 
+  /// The date picker style.
+  final FDatePickerStyle datePickerStyle;
+
   /// The dialog style.
   final FDialogStyle dialogStyle;
 
@@ -142,6 +145,7 @@ final class FThemeData with Diagnosticable {
     required this.calendarStyle,
     required this.cardStyle,
     required this.checkboxStyle,
+    required this.datePickerStyle,
     required this.dialogStyle,
     required this.dividerStyles,
     required this.headerStyle,
@@ -196,6 +200,7 @@ final class FThemeData with Diagnosticable {
       calendarStyle: FCalendarStyle.inherit(colorScheme: colorScheme, typography: typography, style: style),
       cardStyle: FCardStyle.inherit(colorScheme: colorScheme, typography: typography, style: style),
       checkboxStyle: FCheckboxStyle.inherit(colorScheme: colorScheme, style: style),
+      datePickerStyle: FDatePickerStyle.inherit(colorScheme: colorScheme, typography: typography, style: style),
       dialogStyle: FDialogStyle.inherit(colorScheme: colorScheme, typography: typography, style: style),
       dividerStyles: FDividerStyles.inherit(colorScheme: colorScheme, style: style),
       headerStyle: FHeaderStyles.inherit(colorScheme: colorScheme, typography: typography, style: style),
@@ -277,6 +282,7 @@ final class FThemeData with Diagnosticable {
     FCalendarStyle? calendarStyle,
     FCardStyle? cardStyle,
     FCheckboxStyle? checkboxStyle,
+    FDatePickerStyle? datePickerStyle,
     FDialogStyle? dialogStyle,
     FDividerStyles? dividerStyles,
     FHeaderStyles? headerStyle,
@@ -313,6 +319,7 @@ final class FThemeData with Diagnosticable {
         calendarStyle: calendarStyle ?? this.calendarStyle,
         cardStyle: cardStyle ?? this.cardStyle,
         checkboxStyle: checkboxStyle ?? this.checkboxStyle,
+        datePickerStyle: datePickerStyle ?? this.datePickerStyle,
         dialogStyle: dialogStyle ?? this.dialogStyle,
         dividerStyles: dividerStyles ?? this.dividerStyles,
         headerStyle: headerStyle ?? this.headerStyle,
@@ -355,6 +362,7 @@ final class FThemeData with Diagnosticable {
       ..add(DiagnosticsProperty('calendarStyle', calendarStyle, level: DiagnosticLevel.debug))
       ..add(DiagnosticsProperty('cardStyle', cardStyle, level: DiagnosticLevel.debug))
       ..add(DiagnosticsProperty('checkboxStyle', checkboxStyle, level: DiagnosticLevel.debug))
+      ..add(DiagnosticsProperty('datePickerStyle', datePickerStyle, level: DiagnosticLevel.debug))
       ..add(DiagnosticsProperty('dialogStyle', dialogStyle, level: DiagnosticLevel.debug))
       ..add(DiagnosticsProperty('dividerStyles', dividerStyles, level: DiagnosticLevel.debug))
       ..add(DiagnosticsProperty('headerStyle', headerStyle, level: DiagnosticLevel.debug))
@@ -397,6 +405,7 @@ final class FThemeData with Diagnosticable {
           calendarStyle == other.calendarStyle &&
           cardStyle == other.cardStyle &&
           checkboxStyle == other.checkboxStyle &&
+          datePickerStyle == other.datePickerStyle &&
           dialogStyle == other.dialogStyle &&
           dividerStyles == other.dividerStyles &&
           headerStyle == other.headerStyle &&
@@ -434,6 +443,7 @@ final class FThemeData with Diagnosticable {
       calendarStyle.hashCode ^
       cardStyle.hashCode ^
       checkboxStyle.hashCode ^
+      datePickerStyle.hashCode ^
       dialogStyle.hashCode ^
       dividerStyles.hashCode ^
       headerStyle.hashCode ^
