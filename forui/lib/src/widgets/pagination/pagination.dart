@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:forui/forui.dart';
-
 import 'package:meta/meta.dart';
 
 /// A Pagination component that enables the user to select a specific page from a range of pages.
@@ -319,7 +318,12 @@ final class FPaginationStyle with Diagnosticable {
     required this.unselectedTextStyle,
     required this.selectedTextStyle,
     this.itemPadding = const EdgeInsets.symmetric(horizontal: 2),
-    this.contentConstraints = const BoxConstraints(maxWidth: 40.0, minWidth: 40.0, maxHeight: 40, minHeight: 40.0,),
+    this.contentConstraints = const BoxConstraints(
+      maxWidth: 40.0,
+      minWidth: 40.0,
+      maxHeight: 40,
+      minHeight: 40.0,
+    ),
   });
 
   /// Creates a [FDividerStyles] that inherits its properties from [colorScheme] and [typography].
