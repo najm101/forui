@@ -18,6 +18,15 @@ final class FPagination extends StatefulWidget {
   /// The controller. Defaults to [FPaginationController.new].
   final FPaginationController? controller;
 
+  /// Convenience property to set the length of the pagination.
+  ///
+  /// equivalent to setting the [length] property of the [controller].
+  /// if the [controller] is provided, this property is ignored.
+  ///
+  /// # Contract:
+  /// * Throws [AssertionError] if [length] < 0.
+  final int? length;
+
   /// The previous button placed in the beginning of the pagination.
   ///
   /// Defaults to an `FAssets.icons.chevronLeft` icon.
@@ -30,12 +39,16 @@ final class FPagination extends StatefulWidget {
 
   /// Creates an [FPagination].
   const FPagination({
-    this.controller,
     this.style,
+    this.controller,
+    this.length,
     this.previous,
     this.next,
     super.key,
-  });
+  }) : assert(
+          controller != null || (length != null && 0 < length),
+          'Either a controller must be provided, or length must be more than 0, but is $length.',
+        );
 
   @override
   State<FPagination> createState() => _FPaginationState();
@@ -45,21 +58,22 @@ final class FPagination extends StatefulWidget {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('style', style))
-      ..add(DiagnosticsProperty('controller', controller));
+      ..add(DiagnosticsProperty('controller', controller))
+      ..add(DiagnosticsProperty('length', length));
   }
 }
 
 class _FPaginationState extends State<FPagination> {
   late FPaginationController _controller;
-  late int currentPage;
+  late int current;
 
   @override
   void initState() {
     super.initState();
-    _controller = widget.controller ?? FPaginationController(length: 10);
+    _controller = widget.controller ?? FPaginationController(length: widget.length!);
     _controller.addListener(() {
       setState(() {
-        currentPage = _controller.value;
+        current = _controller.value;
       });
     });
   }
@@ -74,7 +88,7 @@ class _FPaginationState extends State<FPagination> {
     if (old.controller != null) {
       _controller.dispose();
     }
-    _controller = widget.controller ?? FPaginationController(length: 10);
+    _controller = widget.controller ?? FPaginationController(length: widget.length!);
   }
 
   @override
@@ -97,16 +111,16 @@ class _FPaginationState extends State<FPagination> {
       ),
     );
 
-    final range = _controller.calculateRange();
+    final range = _controller.calculateSiblingRange();
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         previous,
-        if (_controller.value > _controller.minPagesDisplayedAtEnds + 1) ...[
-          if (_controller.showFirstLastPages)
+        if (_controller.value > _controller.minPagesDisplayedAtEdges + 1) ...[
+          if (_controller.showEdges)
             FPaginationItemData(
-              pageNumber: 1,
+              page: 1,
               style: style,
               controller: _controller,
               child: const _Page(),
@@ -115,16 +129,16 @@ class _FPaginationState extends State<FPagination> {
         ],
         for (int i = range.$1; i <= range.$2; i++)
           FPaginationItemData(
-            pageNumber: i,
+            page: i,
             style: style,
             controller: _controller,
             child: const _Page(),
           ),
-        if (_controller.value < (_controller.length - _controller.minPagesDisplayedAtEnds)) ...[
+        if (_controller.value < (_controller.length - _controller.minPagesDisplayedAtEdges)) ...[
           elipsis,
-          if (_controller.showFirstLastPages)
+          if (_controller.showEdges)
             FPaginationItemData(
-              pageNumber: _controller.length,
+              page: _controller.length,
               style: style,
               controller: _controller,
               child: const _Page(),
@@ -138,7 +152,7 @@ class _FPaginationState extends State<FPagination> {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(IntProperty('currentPage', currentPage));
+    properties.add(IntProperty('current', current));
   }
 }
 
@@ -151,12 +165,12 @@ class FPaginationItemData extends InheritedWidget {
     return data!;
   }
 
-  final int pageNumber;
+  final int page;
   final FPaginationController controller;
   final FPaginationStyle style;
 
   const FPaginationItemData({
-    required this.pageNumber,
+    required this.page,
     required this.controller,
     required this.style,
     required super.child,
@@ -165,13 +179,13 @@ class FPaginationItemData extends InheritedWidget {
 
   @override
   bool updateShouldNotify(covariant FPaginationItemData old) =>
-      pageNumber != old.pageNumber || controller != old.controller || style != old.style;
+      page != old.page || controller != old.controller || style != old.style;
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(IntProperty('index', pageNumber))
+      ..add(IntProperty('page', page))
       ..add(DiagnosticsProperty('controller', controller))
       ..add(DiagnosticsProperty('style', style));
   }
@@ -210,6 +224,7 @@ class _Action extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
         padding: style.itemPadding,
         child: FTappable(
+          semanticLabel: 'Pagination action',
           focusedOutlineStyle: context.theme.style.focusedOutlineStyle,
           onPress: onPress,
           builder: (context, tappableData, child) => DecoratedBox(
@@ -243,7 +258,7 @@ class _Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final FPaginationItemData(pageNumber: pageNumber, :controller, style: style) = FPaginationItemData.of(context);
+    final FPaginationItemData(page: pageNumber, :controller, style: style) = FPaginationItemData.of(context);
 
     final focusedOutlineStyle = context.theme.style.focusedOutlineStyle;
 

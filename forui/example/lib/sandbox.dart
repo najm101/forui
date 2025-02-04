@@ -39,7 +39,7 @@ class _SandboxState extends State<Sandbox> with SingleTickerProviderStateMixin {
           FPagination(
             controller: FPaginationController(
               length: 20,
-              initialPage: 4,
+              page: 4,
             ),
           ),
           const SizedBox(height: 20),
